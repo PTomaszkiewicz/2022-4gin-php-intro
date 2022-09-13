@@ -3,6 +3,8 @@ $ipsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris pretiu
 $words = explode(" ", $ipsum);
 $i = 1;
 foreach($words as $word){
-    echo "[$i] $word </br>";
+    if(preg_match('/\b(\w*e\w*)\b/', $word, $match) == true){
+    echo "[$i] $match[0] </br>";
     $i ++;
+    }
 }
