@@ -16,25 +16,29 @@ foreach($words as $word){
 }
 };
 // sortandsearch($ipsum, $search);
-$words = explode(" ", $ipsum);
-$e = 1;
-echo "<table>";
-foreach($words as $word){
-    if($e<=4){
-    if ($e%4==1){
-        echo "<tr><th>$word</th>";
-    } else if ($e%4==0){
-        echo "<th>$word</th></tr>";
-    } else {
-        echo "<th>$word</th>";
-    }} else {
-    if ($e%4==1){
-        echo "<tr><td>$word</td>";
-    } else if ($e%4==0){
-        echo "<td>$word</td></tr>";
-    } else {
-        echo "<td>$word</td>";
-    }}
-    $e ++;
-}
-echo "</table>";
+$collumn = 5;
+function renderHTMLTable($text2, $cl){
+    $words = explode(" ", $text2);
+    $e = 1;
+    echo "<table>";
+    foreach($words as $word){
+        if($e<=$cl){
+        if ($e%$cl==1){
+            echo "<tr><th>$word</th>";
+        } else if ($e%$cl==0){
+            echo "<th>$word</th></tr>";
+        } else {
+            echo "<th>$word</th>";
+        }} else {
+        if ($e%$cl==1){
+            echo "<tr><td>$word</td>";
+        } else if ($e%$cl==0){
+            echo "<td>$word</td></tr>";
+        } else {
+            echo "<td>$word</td>";
+        }}
+        $e ++;
+    }
+    echo "</table>";
+};
+renderHTMLTable($ipsum, $collumn);
