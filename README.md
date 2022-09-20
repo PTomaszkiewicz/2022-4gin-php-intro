@@ -35,3 +35,12 @@ https://learnxinyminutes.com/docs/php/
     - przyjmuje parametry: tablica oraz liczba kolumn
     - zwraca tabelę HTML z elementami
 
+## Zadanie 4
+
+1. Korzystając z funkcji renderHTMLTable
+    - utwórz funkcję renderCSV, która renderuje dane do postaci CSV (Comma Separated Values), którą można otworzyć np. w Excelu
+    - utwórz funkcję renderMD, która wygeneruje tabelkę w formacie markdown
+    
+## Zadanie 5
+
+1. Uporządkuj swój kod na zajęcia w najbliższą środę - korzystając z dotychczas wydevelopowanego kodu będziemy tworzyć klasę Tablica z odpowiednimi właściwościami i medotami
