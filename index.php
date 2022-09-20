@@ -20,25 +20,55 @@ $collumn = 5;
 function renderHTMLTable($text2, $cl){
     $words = explode(" ", $text2);
     $e = 1;
-    echo "<table>";
+    $table= "<table>";
     foreach($words as $word){
         if($e<=$cl){
         if ($e%$cl==1){
-            echo "<tr><th>$word</th>";
+            $table .= "<tr><th>$word</th>";
         } else if ($e%$cl==0){
-            echo "<th>$word</th></tr>";
+            $table .= "<th>$word</th></tr>";
         } else {
-            echo "<th>$word</th>";
+            $table .= "<th>$word</th>";
         }} else {
         if ($e%$cl==1){
-            echo "<tr><td>$word</td>";
+            $table .= "<tr><td>$word</td>";
         } else if ($e%$cl==0){
-            echo "<td>$word</td></tr>";
+            $table .= "<td>$word</td></tr>";
         } else {
-            echo "<td>$word</td>";
+            $table .= "<td>$word</td>";
         }}
         $e ++;
     }
-    echo "</table>";
+    $table .= "</table>";
+    echo $table;
 };
-renderHTMLTable($ipsum, $collumn);
+function rednderCSV($text2, $cl){
+    ob_start();
+    renderHTMLTable($text2, $cl);
+    $table = ob_get_clean();
+    $csv = array();
+preg_match('/<table(>| [^>]*>)(.*?)<\/table( |>)/is',$table,$b);
+$table = $b[2];
+preg_match_all('/<tr(>| [^>]*>)(.*?)<\/tr( |>)/is',$table,$b);
+$rows = $b[2];
+foreach ($rows as $row) {
+    //cycle through each row
+    if(preg_match('/<th(>| [^>]*>)(.*?)<\/th( |>)/is',$row)) {
+        //match for table headers
+        preg_match_all('/<th(>| [^>]*>)(.*?)<\/th( |>)/is',$row,$b);
+        $csv[] = strip_tags(implode(';',$b[2]));
+    } elseif(preg_match('/<td(>| [^>]*>)(.*?)<\/td( |>)/is',$row)) {
+        //match for table cells
+        preg_match_all('/<td(>| [^>]*>)(.*?)<\/td( |>)/is',$row,$b);
+        $csv[] = strip_tags(implode(';',$b[2]));
+    }
+}
+$csv = implode("\n", $csv);
+$file= "table.csv";
+if(!$handle = fopen($file, "w")){
+    echo "error1";};
+if(!fwrite($handle, $csv)){
+echo "error2";};
+fclose($handle);
+}
+rednderCSV($ipsum, $collumn);
