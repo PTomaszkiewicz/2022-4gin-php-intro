@@ -6,8 +6,8 @@ https://learnxinyminutes.com/docs/php/
 
 ## Zadanie 1
 
-1. wygeneruj tekst Lorem ipsum - co najmniej 100 słów
-1. napisz skrypct php, który pobrany tekst wrzuca do tablicy (array) - każde słowo to ma być kolejny element tablicy
+1. wygeneruj tekst Lorem ipsum (możesz skorzystać ze strony internetowej i ręcznie skopiować wynik do zmiennej) - tekst ma mieć co najmniej 100 słów
+1. napisz skrypt php, który pobrany tekst wrzuca do tablicy (array) - każde słowo to ma być kolejny element tablicy
 1. wyświetl na ekranie zawartość tablicy
 
 
@@ -37,10 +37,10 @@ https://learnxinyminutes.com/docs/php/
 
 ## Zadanie 4
 
-1. Korzystając z funkcji renderHTMLTable
+1. Korzystając z kodu napisanego w funkcji renderHTMLTable:
     - utwórz funkcję renderCSV, która renderuje dane do postaci CSV (Comma Separated Values), którą można otworzyć np. w Excelu
     - utwórz funkcję renderMD, która wygeneruje tabelkę w formacie markdown
     
 ## Zadanie 5
 
-1. Uporządkuj swój kod na zajęcia w najbliższą środę - korzystając z dotychczas wydevelopowanego kodu będziemy tworzyć klasę Tablica z odpowiednimi właściwościami i medotami
+1. Uporządkuj swój kod na zajęcia we wtorek, 27 września - korzystając z dotychczas wydevelopowanego kodu będziemy tworzyć klasę Tablica z odpowiednimi właściwościami i medotami
