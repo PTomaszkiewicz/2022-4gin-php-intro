@@ -10,7 +10,7 @@ class tableTool implements tableToolInterface{
     //Sort text by search phrase and list it
     private function sortandsearch($lookingfor)
     {
-        $output = array();;
+        $output = array();
         sort($this->wordstable, SORT_NATURAL | SORT_FLAG_CASE);
         foreach ($this->wordstable as $word) {
             if (strstr($word, $lookingfor) == true) {
