@@ -138,17 +138,19 @@ $table = new tableTool($array);
         #formularz h2{
             text-align: center;
         }
-        #newRowButt{
+        button{
             font-weight: 600;
             padding: 4px 7px;
             background: white;
             border: 2px solid black;
             border-radius: 5px;
             text-align: center;
+        }
+        #newRowButt{
             display:block;
             margin: 20px auto;
         }
-        #newRowButt:hover{
+        button:hover{
            color:white;
            border:green solid 2px;
            background-color: lightgreen; 
