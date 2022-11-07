@@ -147,7 +147,6 @@ $table = new tableTool($array);
             }   
             newRow.innerHTML += '<td><button onclick="removeRow(this)">Kasuj</button></td>'
             document.querySelector('table').appendChild(newRow);
-            document.getElementById('formularz').style.display = 'none';
         }
         var row = document.querySelectorAll('tr');
         var kol = document.querySelector('table').rows[0].cells.length;
