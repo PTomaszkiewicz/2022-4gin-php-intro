@@ -99,6 +99,10 @@ $table = new tableTool($array);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous" />
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+     />
     <title>Document</title>
 </head>
 <body>
@@ -132,7 +136,8 @@ $table = new tableTool($array);
             }
         }
         function removeRow(selectedRow){
-           selectedRow.closest('tr').remove();
+            selectedRow.closest('tr').className += 'animate__animated animate__backOutLeft';
+            setTimeout(() => {  selectedRow.closest('tr').remove(); }, 500);
         }
         function addNewRow(){
             var newRow = document.createElement('tr');
@@ -146,7 +151,10 @@ $table = new tableTool($array);
                 newRow.appendChild(newKom);
             }   
             newRow.innerHTML += '<td><button onclick="removeRow(this)">Kasuj</button></td><td><button onclick="moveUp(this)" class="upbutt">Wyżej</button></td><td><button onclick="moveDown(this)" class="lowerbutt" >Niżej</button></td>';
-            document.querySelector('table').appendChild(newRow);
+            document.querySelector('table tbody').appendChild(newRow);
+            document.getElementsByClassName("lowerbutt")[document.querySelectorAll('tr').length-1].disabled = true;
+            document.getElementsByClassName("lowerbutt")[document.querySelectorAll('tr').length-2].disabled = false;
+            newRow.className += 'animate__animated animate__backInLeft';
         }
         function moveUp(selectedRow){
             var currentRow= selectedRow.closest('tr')
@@ -160,10 +168,19 @@ $table = new tableTool($array);
             var upperIndex=rowIndex-1
             var currHTML= currentRow.innerHTML;
             var upperHTML = allRows[upperIndex].innerHTML;
+            currentRow.className = 'animate__animated animate__flipOutX'
+            allRows[upperIndex].className = 'animate__animated animate__flipOutX'
+            function endChangeUpAnimation(){
             currentRow.innerHTML = upperHTML
-            allRows[upperIndex].innerHTML = currHTML;
+            allRows[upperIndex].innerHTML = currHTML; 
+            currentRow.className = 'animate__animated animate__flipInX'
+            allRows[upperIndex].className = 'animate__animated animate__flipInX'
             document.getElementsByClassName("upbutt")[0].disabled = true;
             document.getElementsByClassName("upbutt")[1].disabled = false;
+            document.getElementsByClassName("lowerbutt")[document.querySelectorAll('tr').length-1].disabled = true;
+            document.getElementsByClassName("lowerbutt")[document.querySelectorAll('tr').length-2].disabled = false;
+            }
+            setTimeout(() => {  endChangeUpAnimation() }, 500);
         }
         function moveDown(selectedRow){
             var currentRow= selectedRow.closest('tr')
@@ -177,10 +194,20 @@ $table = new tableTool($array);
             var lowerIndex=rowIndex+1
             var currHTML= currentRow.innerHTML;
             var lowerHTML = allRows[lowerIndex].innerHTML;
+            currentRow.className = 'animate__animated animate__flipOutX'
+            allRows[lowerIndex].className = 'animate__animated animate__flipOutX'
+            function endChangeDownAnimation(){
             currentRow.innerHTML = lowerHTML
-            allRows[lowerIndex].innerHTML = currHTML;
-            document.getElementsByClassName("lowerbutt")[row.length-1].disabled = true;
-            document.getElementsByClassName("lowerbutt")[row.length-2].disabled = false;
+            allRows[lowerIndex].innerHTML = currHTML; 
+            currentRow.className = 'animate__animated animate__flipInX'
+            allRows[lowerIndex].className = 'animate__animated animate__flipInX'
+            document.getElementsByClassName("upbutt")[0].disabled = true;
+            document.getElementsByClassName("upbutt")[1].disabled = false;
+            document.getElementsByClassName("lowerbutt")[document.querySelectorAll('tr').length-1].disabled = true;
+            document.getElementsByClassName("lowerbutt")[document.querySelectorAll('tr').length-2].disabled = false;
+            console.log('eo')
+            }
+            setTimeout(() => {  endChangeDownAnimation() }, 500);
         }
         var row = document.querySelectorAll('tr');
         var kol = document.querySelector('table').rows[0].cells.length;
