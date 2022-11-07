@@ -145,18 +145,60 @@ $table = new tableTool($array);
                 newKom.innerHTML = document.getElementById('inputNr'+i).value;
                 newRow.appendChild(newKom);
             }   
-            newRow.innerHTML += '<td><button onclick="removeRow(this)">Kasuj</button></td>'
+            newRow.innerHTML += '<td><button onclick="removeRow(this)">Kasuj</button></td><td><button onclick="moveUp(this)" class="upbutt">Wyżej</button></td><td><button onclick="moveDown(this)" class="lowerbutt" >Niżej</button></td>';
             document.querySelector('table').appendChild(newRow);
+        }
+        function moveUp(selectedRow){
+            var currentRow= selectedRow.closest('tr')
+            var rowIndex
+            var allRows = document.querySelector('table').rows;
+            for(i=0; i<allRows.length; i++){
+                if(allRows[i].id==currentRow.id){
+                    rowIndex=i;
+                }
+            }
+            var upperIndex=rowIndex-1
+            var currHTML= currentRow.innerHTML;
+            var upperHTML = allRows[upperIndex].innerHTML;
+            currentRow.innerHTML = upperHTML
+            allRows[upperIndex].innerHTML = currHTML;
+            document.getElementsByClassName("upbutt")[0].disabled = true;
+            document.getElementsByClassName("upbutt")[1].disabled = false;
+        }
+        function moveDown(selectedRow){
+            var currentRow= selectedRow.closest('tr')
+            var rowIndex
+            var allRows = document.querySelector('table').rows;
+            for(i=0; i<allRows.length; i++){
+                if(allRows[i].id==currentRow.id){
+                    rowIndex=i;
+                }
+            }
+            var lowerIndex=rowIndex+1
+            var currHTML= currentRow.innerHTML;
+            var lowerHTML = allRows[lowerIndex].innerHTML;
+            currentRow.innerHTML = lowerHTML
+            allRows[lowerIndex].innerHTML = currHTML;
+            document.getElementsByClassName("lowerbutt")[row.length-1].disabled = true;
+            document.getElementsByClassName("lowerbutt")[row.length-2].disabled = false;
         }
         var row = document.querySelectorAll('tr');
         var kol = document.querySelector('table').rows[0].cells.length;
         var formButt = document.getElementById('newRowButt');
-        row.forEach(element => {element.innerHTML += '<td><button onclick="removeRow(this)">Kasuj</button></td>', 
+
+        row.forEach((element, index) => {element.setAttribute('id', 'rowId'+index ),
+        element.innerHTML += '<td><button onclick="removeRow(this)">Kasuj</button></td><td><button onclick="moveUp(this)" class="upbutt">Wyżej</button></td><td><button onclick="moveDown(this)" class="lowerbutt" >Niżej</button></td>', 
         element.setAttribute( 'onMouseEnter', 'changeOnEnterTr(this)'),
         element.setAttribute( 'onMouseLeave', 'changeOnLeaveTr(this)')});
+
+        document.getElementsByClassName("upbutt")[0].disabled = true;
+        document.getElementsByClassName("lowerbutt")[row.length-1].disabled = true;
+
         var kom = document.querySelectorAll('th, td');
+
         kom.forEach(element => {element.setAttribute( 'onMouseEnter', 'changeOnEnterTd(this)'),
         element.setAttribute( 'onMouseLeave', 'changeOnLeaveTd(this)')});
+
         for (i=0; i<kol; i++){
             var newInput = document.createElement('input');
             newInput.setAttribute('id', 'inputNr'+i);
