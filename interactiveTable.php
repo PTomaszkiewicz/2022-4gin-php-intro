@@ -103,17 +103,99 @@ $table = new tableTool($array);
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
      />
-    <title>Document</title>
+     <meta name="author" content="Piotr Tomaszkiewicz">
+    <title>Interaktywna Tabela</title>
+    <style>
+        h1{
+            text-align: center;
+            font-family:'Helveltica';
+            font-weight: 800;
+            margin-top: 20px;
+        }
+        .tabelka{
+            border-radius: 15px ;
+            border:2px black solid;
+            margin: 20px 50px;
+            box-shadow: 0px 0px 10px black;
+        }
+        #formularz{
+            margin: 20px 50px;  
+        }
+        #formularz input{
+            text-align: center;
+            padding: 2px 10px;
+            border-radius: 5px;
+            display:block;
+            margin: 20px auto;
+            width: 70%;
+        }
+        #formularz input:focus{
+            outline:none;
+            border: solid green 2px;
+            background-color: lightgreen ;
+            color: white;
+        }
+        #formularz h2{
+            text-align: center;
+        }
+        #newRowButt{
+            font-weight: 600;
+            padding: 4px 7px;
+            background: white;
+            border: 2px solid black;
+            border-radius: 5px;
+            text-align: center;
+            display:block;
+            margin: 20px auto;
+        }
+        #newRowButt:hover{
+           color:white;
+           border:green solid 2px;
+           background-color: lightgreen; 
+        }
+        footer{
+            margin-top: 50px;
+            width: 100%;
+            padding: 50px 60px;
+            background-color:green;
+            color: white;
+            display: inline-flex
+        }
+        footer p{
+            font-weight: 700;
+            display:block;
+            margin: auto auto
+        }
+        footer a{
+            color:white;
+            display:block;
+            margin: auto auto 
+        }
+        footer a:hover{
+            color:lightgreen;
+        }
+    </style>
 </head>
 <body>
+    <h1>Interaktywna Tabela</h1>
+    <div class='tabelka'>
     <?php
     echo $table->renderHTML(5);
     ?>
+    </div>
     <div id='formularz'>
         <h2>Dodaj rząd</h2>
         <br>
         <button id="newRowButt" onclick="addNewRow()">Zapisz</button>
     </div>
+    <footer>
+        <p>Strona stworzona przez Piotra Tomaszkiwicza</p>
+        <a href='https://github.com/PTomaszkiewicz/2022-4gin-php-intro' target='_blank'>
+            <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor" class="bi bi-github" viewBox="0 0 16 16">
+                <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+            </svg>
+        </a>
+    </footer>
     <script>
         function changeOnEnterTr(selectedelement){
             if(selectedelement.style.backgroundColor !== 'lightgray'){
@@ -150,6 +232,8 @@ $table = new tableTool($array);
                 newKom.innerHTML = document.getElementById('inputNr'+i).value;
                 newRow.appendChild(newKom);
             }   
+            var nextId=document.querySelector('table').rows.length;
+            newRow.setAttribute('id', 'rowId'+nextId)
             newRow.innerHTML += '<td><button onclick="removeRow(this)">Kasuj</button></td><td><button onclick="moveUp(this)" class="upbutt">Wyżej</button></td><td><button onclick="moveDown(this)" class="lowerbutt" >Niżej</button></td>';
             document.querySelector('table tbody').appendChild(newRow);
             document.getElementsByClassName("lowerbutt")[document.querySelectorAll('tr').length-1].disabled = true;
@@ -194,7 +278,7 @@ $table = new tableTool($array);
             var lowerIndex=rowIndex+1
             var currHTML= currentRow.innerHTML;
             var lowerHTML = allRows[lowerIndex].innerHTML;
-            currentRow.className = 'animate__animated animate__flipOutX'
+            currentRow.className = 'animate__animated animate__flipOutX table table-dark table-striped'
             allRows[lowerIndex].className = 'animate__animated animate__flipOutX'
             function endChangeDownAnimation(){
             currentRow.innerHTML = lowerHTML
@@ -231,6 +315,7 @@ $table = new tableTool($array);
             newInput.setAttribute('id', 'inputNr'+i);
             document.getElementById('formularz').insertBefore(newInput, formButt);
         }
+        document.querySelector('table').className += 'table table-striped';
     </script>
 </body>
 </html>
